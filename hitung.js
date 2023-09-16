@@ -80,3 +80,64 @@ document.getElementById('closePopup').addEventListener('click', function() {
                 document.getElementById('display').value = 'Error';
             }
         }
+// Fungsi untuk memasukkan nilai-nilai input ke dalam local storage
+function saveInputValues() {
+  const denominations = [
+    100000, 50000, 20000, 10000, 5000, 2000, 1000, 500
+  ];
+
+  denominations.forEach(denomination => {
+    const inputId = `input-${denomination}`;
+    const inputValue = document.getElementById(inputId).value;
+    localStorage.setItem(inputId, inputValue);
+  });
+
+  const transferredAmount = document.getElementById('input-transferred').value;
+  localStorage.setItem('input-transferred', transferredAmount);
+
+  const dfodAmount = document.getElementById('input-dfod').value;
+  localStorage.setItem('input-dfod', dfodAmount);
+
+  const targetAmount = document.getElementById('target').value;
+  localStorage.setItem('target', targetAmount);
+}
+
+// Fungsi untuk memulihkan nilai-nilai input dari local storage
+function restoreInputValues() {
+  const denominations = [
+    100000, 50000, 20000, 10000, 5000, 2000, 1000, 500
+  ];
+
+  denominations.forEach(denomination => {
+    const inputId = `input-${denomination}`;
+    const storedValue = localStorage.getItem(inputId);
+    if (storedValue !== null) {
+      document.getElementById(inputId).value = storedValue;
+    }
+  });
+
+  const transferredAmount = localStorage.getItem('input-transferred');
+  if (transferredAmount !== null) {
+    document.getElementById('input-transferred').value = transferredAmount;
+  }
+
+  const dfodAmount = localStorage.getItem('input-dfod');
+  if (dfodAmount !== null) {
+    document.getElementById('input-dfod').value = dfodAmount;
+  }
+
+  const targetAmount = localStorage.getItem('target');
+  if (targetAmount !== null) {
+    document.getElementById('target').value = targetAmount;
+  }
+}
+
+// Memulihkan nilai-nilai input dari local storage saat halaman dimuat
+window.addEventListener('load', function() {
+  restoreInputValues();
+});
+
+// Menyimpan nilai-nilai input ke local storage saat tombol "Hitung" diklik
+document.getElementById('calculate').addEventListener('click', function() {
+  saveInputValues();
+  {);
